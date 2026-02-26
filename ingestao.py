@@ -6,10 +6,10 @@ from sqlalchemy import create_engine
 
 # --- CONFIGURAÇÕES DE ACESSO (Preenchido com seus dados) ---
 USUARIO = 'postgres'
-SENHA = '742305'
+SENHA = 
 HOST = 'localhost'
-PORTA = '5432'
-BANCO = 'dw_ganalytics'
+PORTA = 
+BANCO = 
 
 # Criando a engine de conexão com o Postgres
 engine = create_engine(f'postgresql://{USUARIO}:{SENHA}@{HOST}:{PORTA}/{BANCO}')
