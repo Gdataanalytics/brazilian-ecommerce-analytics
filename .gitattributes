@@ -1,0 +1,7 @@
+# Cria o arquivo de novo (já que o reset pode ter apagado ele)
+echo "*.sql linguist-detectable=true" > .gitattributes
+
+# Adiciona e sobe
+git add .gitattributes
+git commit -m "docs: forçar sql no gráfico"
+git push origin main

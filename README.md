@@ -36,3 +36,8 @@ Processamos os dados brutos do schema `stage` para o schema `analytics`, estrutu
 ### Tecnologias:
 - SQL (PostgreSQL)
 - DBeaver (Gestão do DW)
+
+### 📊 Modelo de Dados (Star Schema)
+Abaixo está o diagrama de relacionamento das 8 tabelas modeladas no schema `analytics`. Este modelo foi desenhado seguindo a metodologia **Star Schema** para otimizar as consultas e facilitar a análise exploratória dos dados.
+
+![Diagrama de Relacionamento](img/diagrama%20schema.png)
