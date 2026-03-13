@@ -41,3 +41,20 @@ Processamos os dados brutos do schema `stage` para o schema `analytics`, estrutu
 Abaixo está o diagrama de relacionamento das 8 tabelas modeladas no schema `analytics`. Este modelo foi desenhado seguindo a metodologia **Star Schema** para otimizar as consultas e facilitar a análise exploratória dos dados.
 
 ![Diagrama de Relacionamento](img/diagrama%20schema.png)
+
+## 🧠 Etapa 3: Clusterização e Inteligência de Clientes
+Utilizamos Machine Learning para segmentar a base de 96.096 clientes, permitindo estratégias personalizadas de marketing e retenção.
+
+### Ações Realizadas:
+- **Processamento:** Extração de uma Query Mestra consolidando métricas financeiras, logísticas e de engajamento por cliente.
+- **Machine Learning:** Aplicação do algoritmo **K-Means** (com método Elbow para definição de clusters).
+- **Segmentação Estratégica:** Classificação dos clientes em 4 grupos:
+    - **Diamante (High Value):** Alta receita e recorrência.
+    - **Engajados (Recorrentes):** Compradores frequentes com alta satisfação.
+    - **Econômicos (Foco Boleto):** Perfil de pagamento à vista e ticket moderado.
+    - **Potenciais (Base Comum):** Grande volume de clientes para estratégias de conversão.
+- **Persistência:** Gravação da nova dimensão `tb_dim_customers_segmented` diretamente no schema `analytics` do PostgreSQL.
+
+### Tecnologias:
+- Python (Pandas, Scikit-Learn, SQLAlchemy)
+- Machine Learning (K-Means Clustering)

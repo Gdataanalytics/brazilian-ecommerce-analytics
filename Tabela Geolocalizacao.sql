@@ -2,20 +2,13 @@
 -- Criando a tabela de dimensão de geolocalização consolidada
 CREATE TABLE analytics.tb_dim_geolocation AS
 SELECT 
-    -- Chave de ligação com a tabela de clientes para atribuir localização ao perfil de consumo
+ -- Chave de ligação com a tabela de clientes para atribuir localização ao perfil de consumo
     geolocation_zip_code_prefix AS cep_prefixo, 
-
-    -- Coordenada Norte-Sul: Permite ao algoritmo calcular distâncias físicas e polos regionais
+    -- Coordenada Norte-Sul: Permite ao algoritmo calcular distâncias físicas e polos regionai
     AVG(geolocation_lat) AS latitude, 
-
-    -- Coordenada Leste-Oeste: Essencial para identificar "manchas" de calor e densidade logística
+      -- Coordenada Leste-Oeste: Essencial para identificar "manchas" de calor e densidade logística
     AVG(geolocation_lng) AS longitude, 
-
-    -- Nome da localidade: Usado para rotular e interpretar os clusters (ex: "Cluster de Capitais")
-    -- TRATAMENTO DA CIDADE:
-    -- 1. TRIM e UPPER padronizam o formato.
-    -- 2. TRANSLATE troca caracteres acentuados pelos equivalentes simples.
-    -- 3. MAX consolida tudo em uma única linha por CEP.
+    -- Pegamos o MAX da cidade e do estado para garantir que venha apenas 1 valor por CEP
     MAX(
         TRANSLATE(
             UPPER(TRIM(geolocation_city)), 
@@ -23,13 +16,10 @@ SELECT
             'AEIOUAEIOUAOAEOIUAEIOUC'
         )
     ) AS cidade,
-
-    -- Sigla da UF: Permite validar se o agrupamento faz sentido em uma escala macro (estadual)
-    geolocation_state AS estado 
-
+    MAX(geolocation_state) AS estado -- MAX aqui para não precisar agrupar por estado
 FROM stage.stg_geolocation
-GROUP BY 
-    1, 5
+GROUP BY 1 -- AGRUPAR APENAS PELO PREFIXO DO CEP
+
 
     
  /* POR QUE USAMOS AVG (MÉDIA) NAS COORDENADAS? 
